@@ -5,4 +5,7 @@ form(action="/users/search", method="GET")
   button Search
 ul 
   each val in users
-    li= val.name
+    li
+      span= val.name
+      span &nbsp
+      a(href=`/users/${val.id}`) view
