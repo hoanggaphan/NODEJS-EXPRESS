@@ -1,6 +1,6 @@
 const express = require("express");
 
-const usersRoutes = require('./routes/users.routes');
+const usersRoute = require('./routes/users.route');
 
 const port = 3000;
 
@@ -13,6 +13,6 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 
 app.get("/", (req, res) => res.render("index", { name: "Hoàng" }));
 
-app.use("/users", usersRoutes)
+app.use("/users", usersRoute)
 
 app.listen(3000, () => console.log("App listening on port " + port));
