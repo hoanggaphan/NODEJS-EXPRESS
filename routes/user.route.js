@@ -7,6 +7,11 @@ const router = express.Router();
 
 router.get("/", controllers.index);
 
+router.get('/cookie', (req, res, next) => {
+  res.cookie('session-id', 123);
+  res.send("Demo Cookie");
+})
+
 router.get("/search", controllers.search);
 
 router.get("/create", controllers.create);
