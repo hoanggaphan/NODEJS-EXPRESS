@@ -2,24 +2,13 @@
   "users": [
     {
       "name": "kula",
-      "id": "lzJNbMjAi"
+      "phone": "11",
+      "id": "Zmoq2Eq3L",
+      "email": "kula@gmail.com",
+      "password": "kula"
     },
     {
       "name": "k'",
-      "id": "_JJKXpOag"
-    },
-    {
-      "name": "",
-      "phone": "",
-      "id": "NJYaCEP_w"
-    },
-    {
-      "name": "aa",
-      "phone": "11",
-      "id": "Zmoq2Eq3L"
-    },
-    {
-      "name": "aaa",
       "phone": "123",
       "id": "saMKYWB-J"
     },
@@ -37,6 +26,11 @@
       "name": "athena",
       "phone": "2",
       "id": "YwzbxZ8dK"
+    },
+    {
+      "name": "Rugal",
+      "phone": "123123",
+      "id": "Xqo0-FxOT"
     }
   ]
 }
