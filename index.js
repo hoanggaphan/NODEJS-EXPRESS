@@ -14,7 +14,7 @@ app.set("views", "./views");
 
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(cookieParser());
+app.use(cookieParser("adASdas213aASD213sdas"));
 
 app.use(express.static("public"));
 

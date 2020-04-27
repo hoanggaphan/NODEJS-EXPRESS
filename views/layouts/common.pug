@@ -17,6 +17,8 @@ html
             a.nav-link(href='/users') Users
           li.nav-item
             a.nav-link(href='/users/create') Create
+      if user
+        p.text-light= user.name
     .container.pt-5
       block content
     
