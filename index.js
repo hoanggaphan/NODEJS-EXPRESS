@@ -23,5 +23,5 @@ app.get("/", (req, res) => res.render("index", { name: "Hoàng" }));
 
 app.use("/users", authMiddleware.requireAuth, userRoute);
 app.use("/auth", authRoute);
-
+console.log(process.env);
 app.listen(3000, () => console.log("App listening on port " + port));
