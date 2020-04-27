@@ -1,3 +1,5 @@
+require('dotenv').config();
+console.log(typeof process.env.SESSION_SECRET);
 // req.query
 const express = require("express");
 const cookieParser = require("cookie-parser");
@@ -14,7 +16,7 @@ app.set("views", "./views");
 
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(cookieParser("adASdas213aASD213sdas"));
+app.use(cookieParser(process.env.SESSION_SECRET));
 
 app.use(express.static("public"));
 
@@ -23,5 +25,5 @@ app.get("/", (req, res) => res.render("index", { name: "Hoàng" }));
 
 app.use("/users", authMiddleware.requireAuth, userRoute);
 app.use("/auth", authRoute);
-console.log(process.env);
+
 app.listen(3000, () => console.log("App listening on port " + port));
