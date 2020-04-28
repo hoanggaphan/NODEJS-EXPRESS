@@ -1,5 +1,5 @@
 require('dotenv').config();
-console.log(typeof process.env.SESSION_SECRET);
+
 // req.query
 const express = require("express");
 const cookieParser = require("cookie-parser");
