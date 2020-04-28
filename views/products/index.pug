@@ -1,0 +1,58 @@
+extends ../layouts/common
+
+block content 
+  h1 Products
+  .row
+    each product in products
+      .col-md-3.mb-3
+        .card.h-100
+          img.card-img-top(src=product.image alt=product.name)
+          .card-body
+            h4.card-title= product.name
+            p.card-text= product.description
+  ul.pagination.justify-content-end
+    if page > 1
+      li.page-item
+        a.page-link(href=`/products?page=1`) First
+      li.page-item
+        a.page-link(href=`/products?page=${page - 1}`) Previous
+    else
+      li.page-item.disabled
+        a.page-link(href=`#`) First
+      li.page-item.disabled
+        a.page-link(href=`#`) Previous
+
+    if page === 1
+      li.page-item.active
+        a.page-link(href=`/products?page=${page}`)= page
+      li.page-item
+        a.page-link(href=`/products?page=${page + 1}`)= page + 1
+      li.page-item
+        a.page-link(href=`/products?page=${page + 2}`)= page + 2
+    else if page === pageAmount
+      li.page-item
+        a.page-link(href=`/products?page=${page - 2}`)= page - 2
+      li.page-item
+        a.page-link(href=`/products?page=${page - 1}`)= page - 1
+      li.page-item.active
+        a.page-link(href=`/products?page=${page}`)= page
+    else
+      li.page-item
+        a.page-link(href=`/products?page=${page - 1}`)= page - 1
+      li.page-item.active
+        a.page-link(href=`/products?page=${page}`)= page
+      li.page-item
+        a.page-link(href=`/products?page=${page + 1}`)= page + 1
+
+    if page < pageAmount
+      li.page-item
+        a.page-link(href=`/products?page=${page + 1}`) Next
+      li.page-item
+        a.page-link(href=`/products?page=${pageAmount}`) Last
+    else
+      li.page-item.disabled
+        a.page-link(href=`#`) Next
+      li.page-item.disabled
+        a.page-link(href=`#`) Last
+
+    
