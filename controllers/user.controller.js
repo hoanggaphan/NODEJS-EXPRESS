@@ -7,14 +7,14 @@ module.exports.index = (req, res) =>
 
 module.exports.search = (req, res) => {
   const q = req.query.q;
-  const matchedUses = db
+  const matchedUser = db
     .get("users")
     .value()
     .filter(
       (user) =>
-        user.name.toLocaleLowerCase().indexOf(q.toLocaleLowerCase()) > -1
+        user.name.toLowerCase().indexOf(q.toLowerCase()) > -1
     );
-  res.render("users/index", { title: "User search result", users: matchedUses, q });
+  res.render("users/index", { title: "User search result", users: matchedUser, q });
 };
 
 module.exports.create = (req, res) => {
