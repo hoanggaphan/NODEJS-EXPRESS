@@ -1,6 +1,8 @@
 const db = require("../db");
 
 module.exports.index = (req, res) => {
+  res.locals.title = "Products";
+
   const page = parseInt(req.query.page) || 1;
   const perPage = 8;
 
@@ -12,7 +14,6 @@ module.exports.index = (req, res) => {
 
   res.render("products/index", {
     // products: db.get("products").value().slice(start, end),
-    title: "Products",
     products: db.get("products").drop(drop).take(perPage).value(),
     pageAmount,
     page,

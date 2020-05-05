@@ -1,6 +1,6 @@
 const express = require("express");
 
-const upload = require("../middlewares/upload.middleware");
+const uploadMiddleWare = require("../middlewares/upload.middleware");
 const controllers = require("../controllers/user.controller");
 const validate = require("../validates/user.validate");
 
@@ -19,6 +19,6 @@ router.get("/create", controllers.create);
 
 router.get("/:id", controllers.get);
 
-router.post("/create", upload, validate.postCreate, controllers.postCreate);
+router.post("/create", uploadMiddleWare, validate.postCreate, controllers.postCreate);
 
 module.exports = router;
