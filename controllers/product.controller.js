@@ -1,6 +1,6 @@
 const Product = require("./../models/product.model");
 
-module.exports.index = async (req, res) => {
+module.exports.index = async (req, res, next) => {
   res.locals.title = "Products";
 
   // const page = parseInt(req.query.page) || 1;
@@ -18,9 +18,13 @@ module.exports.index = async (req, res) => {
   //   pageAmount,
   //   page,
   // });
-
-  const products = await Product.find();
-  res.render("products/index", {
-    products,
-  });
+  try {
+    const products = await Product.find();
+    products.foo();
+    res.render("products/index", {
+      products,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
