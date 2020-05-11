@@ -20,6 +20,9 @@ const productRoute = require("./routes/product.route");
 const cartRoute = require("./routes/cart.route");
 const transferRoute = require("./routes/transfer.route");
 
+// setup api route
+const apiProductRoute = require("./api/routes/product.route");
+
 // setup middleware
 const authMiddleWare = require("./middlewares/auth.middleware");
 const sessionMiddleWare = require("./middlewares/session.middleware");
@@ -50,5 +53,8 @@ app.use("/auth", authRoute);
 app.use("/products", productRoute);
 app.use("/cart", cartRoute);
 app.use("/transfer", csrfProtection, authMiddleWare.requireAuth, transferRoute);
+
+// Routes api
+app.use("/api/products", apiProductRoute);
 
 app.listen(3000, () => console.log("App listening on port " + port));
