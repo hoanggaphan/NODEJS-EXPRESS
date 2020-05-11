@@ -3,7 +3,15 @@ require("dotenv").config();
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const path = require("path");
-const csurf = require("csurf");
+const csrf = require("csurf");
+const mongoose = require("mongoose");
+
+// setup dbs mongodb with mongoose
+mongoose.connect(process.env.MONGO_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+});
 
 // setup route
 const userRoute = require("./routes/user.route");
@@ -16,7 +24,7 @@ const transferRoute = require("./routes/transfer.route");
 const authMiddleWare = require("./middlewares/auth.middleware");
 const sessionMiddleWare = require("./middlewares/session.middleware");
 
-const csrfProtection = csurf({ cookie: true })
+const csrfProtection = csrf({ cookie: true, signed: true });
 
 const port = 3000;
 
@@ -29,7 +37,7 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 app.use(cookieParser(process.env.SESSION_SECRET));
 app.use(sessionMiddleWare);
 
-app.use("/static", express.static(path.join(__dirname, "/public")));
+app.use(express.static(path.join(__dirname, "/public")));
 
 // Routes
 app.get("/", (req, res) => {

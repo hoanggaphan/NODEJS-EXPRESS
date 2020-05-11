@@ -18,8 +18,9 @@ block content
       each user, index in users
         tr
           td
-            img.rounded-circle(src=`/static/${user.avatar}` alt=user.name width="33" height="33")
+            img.rounded-circle(src=`/${user.avatar}` alt=user.name width="33" height="33")
           td= user.name
           td= user.phone
           td
             a(class="btn btn-light" href=`/users/${user.id}` ) view
+            a(class="btn btn-danger" href=`/users/delete/${user.id}` ) delete

@@ -6,7 +6,7 @@ html
     nav.navbar.navbar-expand-md.bg-light.navbar-light
       // Brand
       a.navbar-brand(href='/') 
-        img(src="/static/images/logo.png" alt="Logo" width="90" height="40")
+        img(src="/images/logo.png" alt="Logo" width="90" height="40")
       // Toggler/collapsibe Button
       button.navbar-toggler(type='button' data-toggle='collapse' data-target='#collapsibleNavbar')
         span.navbar-toggler-icon
@@ -16,13 +16,13 @@ html
           li.nav-item
             a.nav-link(href='/users') Users
           li.nav-item
-            a.nav-link(href='/users/create') Create
-          li.nav-item
             a.nav-link(href='/products') Product
           li.nav-item
-            a.nav-link(href='#') Cart(#{cart || 0})
+            a.nav-link(href='/transfer/create') Transfer
+          li.nav-item
+            a.nav-link(href='#') Cart(#{cart})
         if user
-          p.text-light.ml-auto.mb-0= user.name
+          p.text-dark.ml-auto.mb-0= user.name
     .container.pt-5
       block content
     

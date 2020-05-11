@@ -1,24 +1,26 @@
-const shortid = require("shortid");
+const User = require("./../models/user.model");
 
-const db = require("../db");
-
-module.exports.index = (req, res) => {
+module.exports.index = async (req, res) => {
   res.locals.title = "Users";
-  res.render("users/index", { users: db.get("users").value() });
-}
 
-module.exports.search = (req, res) => {
+  const users = await User.find();
+  res.render("users/index", { users });
+};
+
+module.exports.get = async (req, res) => {
+  res.locals.title = "Detail user";
+
+  const id = req.params.id;
+  const user = await User.findById(id);
+  res.render("users/view", { user });
+};
+
+module.exports.search = async (req, res) => {
   res.locals.title = "User search result";
 
   const q = req.query.q;
-  const matchedUser = db
-    .get("users")
-    .value()
-    .filter(
-      (user) =>
-        user.name.toLowerCase().indexOf(q.toLowerCase()) > -1
-    );
-  res.render("users/index", { users: matchedUser, q });
+  const users = await User.find({ name: { $regex: q } });
+  res.render("users/index", { users, q });
 };
 
 module.exports.create = (req, res) => {
@@ -26,18 +28,20 @@ module.exports.create = (req, res) => {
   res.render("users/create");
 };
 
-module.exports.get = (req, res) => {
-  res.locals.title = "Detail user";
+module.exports.postCreate = async (req, res) => {
+  const user = new User({
+    name: req.body.name,
+    phone: req.body.phone,
+    avatar: req.file.path.split("\\").slice(1).join("\\"),
+  });
 
-  const id = req.params.id;
-  const user = db.get("users").find({ id }).value();
-  res.render("users/view", { user });
+  await user.save();
+  res.redirect("/users");
 };
 
-module.exports.postCreate = (req, res) => {
-  req.body.id = shortid.generate();
-  req.body.avatar = req.file.path.split("\\").slice(1).join("\\")
-
-  db.get("users").push(req.body).write();
+module.exports.delete = async (req, res) => {
+  const id = req.params.id;
+  
+  await User.findByIdAndDelete(id);
   res.redirect("/users");
 };

@@ -1,20 +1,15 @@
-const shortId = require("shortid");
+const Transfer = require("../models/transfer.model");
 
-const db = require("../db");
-
-module.exports.create = (req, res, next) => {
+module.exports.create = (req, res) => {
   res.render("transfer/create", { csrfToken: req.csrfToken() });
 };
 
-module.exports.postCreate = (req, res, next) => {
-  const data = {
-    id: shortId.generate(),
+module.exports.postCreate = (req, res) => {
+  const data = new Transfer({
     accountId: req.body.accountId,
     amount: parseInt(req.body.amount),
-    userId: req.signedCookies.userId
-  };
+    userId: req.signedCookies.userId,
+  });
 
-  db.get("transfers").push(data).write();
-
-  res.redirect('/transfer/create')
+  data.save().then(() => res.redirect("/transfer/create"));
 };

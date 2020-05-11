@@ -1,29 +1,31 @@
-const shortid = require("shortid");
-const db = require("./../db");
+const mongoose = require("mongoose");
 
-module.exports = (req, res, next) => {
+const Session = require("../models/session.model");
+
+module.exports = async (req, res, next) => {
   let sessionId = req.signedCookies.sessionId;
 
   if (!sessionId) {
-    sessionId = shortid.generate();
+    const sessionId = new mongoose.Types.ObjectId();
+
     res.cookie("sessionId", sessionId, {
       signed: true,
     });
-    db.get("sessions")
-      .push({
-        id: sessionId,
-      })
-      .write();
+
+    const session = new Session({ _id: sessionId });
+    await session.save();
 
     next();
+    return; // không return nó sẽ chạy tiêp
   }
 
-  res.locals.cart = db
-    .get("sessions")
-    .find({ id: sessionId })
-    .get("cart")
-    .reduce((sum, value, key) => sum + value, 0)
-    .value();
+  // Total of the cart
+  const session = await Session.findById(sessionId);
+  let sum = 0;
+  for (const property in session.cart) {
+    sum += session.cart[property];
+  }
+  res.locals.cart = sum;
 
   next();
 };

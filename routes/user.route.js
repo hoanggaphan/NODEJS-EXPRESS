@@ -19,6 +19,8 @@ router.get("/create", controllers.create);
 
 router.get("/:id", controllers.get);
 
+router.get("/delete/:id", controllers.delete);
+
 router.post("/create", uploadMiddleWare, validate.postCreate, controllers.postCreate);
 
 module.exports = router;
