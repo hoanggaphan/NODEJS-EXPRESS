@@ -18,9 +18,10 @@ module.exports.index = async (req, res, next) => {
   //   pageAmount,
   //   page,
   // });
+
   try {
     const products = await Product.find();
-    products.foo();
+    // products.foo();
     res.render("products/index", {
       products,
     });
